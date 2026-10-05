@@ -1,36 +1,21 @@
-# uke-core-meta
+# Uke core package selection
 
-Minimal console system dependencies and profile-aware package composition for Xiaomi Pad 7 / POCO Pad X1 (`uke`, SM7675).
+`uke-core-meta` is a real AArch64 RPM/SRPM with a minimal console dependency
+selection and a machine-readable Uke readiness profile. It requires the reviewed
+Senemos Uke kernel family, NetworkManager, OpenSSH and basic native/shell tools.
+It does not install unqualified firmware or Nabu hardware services. The current
+candidate does not establish tablet boot, a working console or hardware support.
 
-This is an initial project-owned source and packaging repository. The manifest
-lists the intended packages, Uke evidence gates and current build readiness.
-There is no functional hardware payload or device acceptance at this checkpoint.
+`make validate` checks source policy; `make srpm` creates a complete source RPM.
+COPR's isolated source factory uses `.copr/Makefile`. Pushes to `main` trigger
+native Rawhide AArch64 builds after the source webhook is enabled. Target closure
+and actual install/upgrade/removal results are recorded separately in `reports/`.
+No repository, kernel boot selection, Android partition or service preset is
+modified by this package's own payload; it has no scriptlets.
 
-## Package scope
-
-- `uke-core-meta`
-
-Nabu reference families: `nabu-core-meta`.
-These are process references; Uke wiring, firmware and runtime behavior require
-independent implementation and validation.
-
-## Required validation
-
-- Resolve only available Uke package families.
-- Audit the complete installed closure for Python.
-- Separate kernel package installation from boot selection.
-
-The first packaging target is Fedora Rawhide AArch64 in
-[uke-linux-test COPR](https://copr.fedorainfracloud.org/coprs/mcc45tr/uke-linux-test/).
-DEB and Alpine APK targets require their own native rules later.
-Unimplemented targets fail explicitly rather than producing placeholder RPMs.
-
-Use `make validate` to check this repository's manifest contract. Native device
-applications use C++; upstream C/assembly interfaces retain their original
-languages. Host automation uses Bash or Make. Python does not enter tablet
-payloads. Source archives belong in `referances/`, development in `src/`.
-Public records exclude personal paths, unit identifiers and calibration data.
-
-See [the roadmap](docs/ROADMAP.md), [source policy](docs/SOURCE-POLICY.md) and
-[manifest](manifests/component.json). New material findings are recorded in
-`docs/lessons/`; source, package, emulation and physical evidence stay distinct.
+The [development COPR](https://copr.fedorainfracloud.org/coprs/mcc45tr/uke-linux-test/)
+and [package catalog](https://github.com/MCC45TR/uke-linux/blob/main/docs/PACKAGE-HUB.md)
+track each independently admitted component. Source archives stay in `referances/`.
+Nabu's core specification at commit `98188b595b42ba975f5bc238e596f330d3994ed8`
+was read as a role reference; its boot, calibration, panel, SSC and firmware
+payloads were not copied into this Uke package.
