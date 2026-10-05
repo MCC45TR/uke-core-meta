@@ -42,3 +42,17 @@
   project's target policy. The console selection still needs an extracted
   complete-runtime audit; these conflicts cannot detect undeclared scripts.
 - Next validation: corrected native dependencies, signed transactions and payload audit.
+
+## UKE-CORE-004 — inherited scripts require a source capability
+
+- Date: 2026-10-05.
+- Environment: complete installed Rawhide AArch64 root under QEMU userspace.
+- Evidence: the installed package-name guard passed but the root scan found 15
+  Python/PYC debugger helpers in the already installed Fedora libstdc++.
+- Consequence: release 3 requires the source-built native libstdc++ capability,
+  retaining interpreter conflicts and ordinary dependency solving. The library
+  replacement must remove its old RPM-owned helpers during upgrade.
+- Uncertainty: source capability, signatures, complete root and lifecycle are
+  separate gates; no boot or console hardware result is inferred.
+- Next validation: native source build followed by actual signed package
+  installation/upgrade/removal and full inherited-root inspection.
