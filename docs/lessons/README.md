@@ -30,3 +30,15 @@
   binary acceptance, graphical rendering or physical operation.
 - Next validation: collect native COPR and signed target transaction results in
   distinct reports, then separately qualify hardware.
+
+## UKE-CORE-003 — prevent transitive Python in the solver
+
+- Date: 2026-10-05.
+- Environment: Rawhide AArch64 full desktop transaction, not a tablet.
+- Evidence: optional Fedora bindings and installed build/documentation utilities
+  introduced six Python packages into the first complete Plasma selection.
+- Consequence: release 2 explicitly conflicts with the Python ABI and interpreter
+  packages. Dependency changes fail solving rather than silently relaxing the
+  project's target policy. The console selection still needs an extracted
+  complete-runtime audit; these conflicts cannot detect undeclared scripts.
+- Next validation: corrected native dependencies, signed transactions and payload audit.
